@@ -7,7 +7,6 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -59,12 +58,12 @@
                 <div class="row">
                     <div class=" card col-md-6 login-form-1 bg-dark" style="border-radius: 0px;">
                         <h3 class="text-white">Log In into existing account</h3>
-                        <form>
+                        <form id="login-form">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Your Email *" value="" />
+                                <input id="login-email" type="text" class="form-control" placeholder="Your Email *" value="" />
                             </div>
                             <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Your Password *" value="" />
+                                <input id="login-password" type="password" class="form-control" placeholder="Your Password *" value="" />
                             </div>
                             <div class="form-group">
                                 <a href="Dashboard.html"><input type="button" class="btnSubmit" value="Login"></a>
@@ -72,16 +71,19 @@
                             <div class="form-group">
                                 <a class="ForgetPwd">Forget Password?</a>
                             </div>
+                            <div>
+                              <p class="error text-white"></p>
+                            </div>
                         </form>
                     </div>
                     <div class="card col-md-6 login-form-2 border-dark" style="border-radius: 0px;">
                         <h3>Create an account</h3>
-                        <form>
+                        <form id = "signup-form">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Your Username *" value="" />
+                                <input id="signup-username" type="text" class="form-control" placeholder="Your Username *" value="" />
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Your Email *" value="" />
+                                <input id="signup-email" type="text" class="form-control" placeholder="Your Email *" value="" />
                             </div>
                             <select class="form-control grade">
                                 <option selected>Your Grade</option>
@@ -90,7 +92,7 @@
                                 <option value="3">Three</option>
                             </select>
                             <div class="form-group">
-                                <input type="password" class="form-control" placeholder="Your Password *" value="" />
+                                <input id="signup-password" type="password" class="form-control" placeholder="Your Password *" value="" />
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -98,15 +100,17 @@
                                 </div>
                                 <div class="custom-file">
                                   <input type="file" class="custom-file-input" id="inputGroupFile03">
-                                  <label class="custom-file-label" for="inputGroupFile03">Upload Profile Picture</label>
+                                  <label class="custom-file-label" for="inputGroupFile03" onclick="newuser()">Upload Profile Picture</label>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="submit" class="btnSubmit" value="Login" />
+                              <input href="Dashboard.html" type="submit" class="btnSubmit" value="Create Account" />
                             </div>
                             <div class="form-group">
-
                                 <a href="#" class="ForgetPwd" value="Login">Forget Password?</a>
+                            </div>
+                            <div>
+                              <p class="text-white" id="signup-alert"></p>
                             </div>
                         </form>
                     </div>
@@ -117,11 +121,43 @@
           Privacy FAQ: Concerned about privacy? Read more about how you can keep your information safe here.
         </div>
     </div>
+
+
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-firestore.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.2.4/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      var firebaseConfig = {
+        apiKey: "AIzaSyBm9d_H8h6V95jSu_eI1kqh4f4CX1OvgXE",
+        authDomain: "scholarlink-cd4a0.firebaseapp.com",
+        projectId: "scholarlink-cd4a0",
+        storageBucket: "scholarlink-cd4a0.appspot.com",
+        messagingSenderId: "205662762759",
+        appId: "1:205662762759:web:abcf0e76986def33dc37a2",
+        measurementId: "G-Q8HJZ9PDCP"
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+
+      const auth = firebase.auth();
+      const db = firebase.firestore();
+
+    </script>
         <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    
+    <script src="login.js"></script>
+    <script src="signup.js"></script>
 </body>
 </html>
